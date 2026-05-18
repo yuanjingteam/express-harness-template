@@ -1,0 +1,11 @@
+{
+  "request": {
+    "username": "wangwu",
+    "email": "wangwu@example.com",
+    "phone": "13800000003"
+  },
+  "expectedResponse": {
+    "username": "wangwu",
+    "status": "ACTIVE"
+  }
+}
