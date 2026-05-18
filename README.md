@@ -1,4 +1,7 @@
 # Node Express — Harness 示例
+<p align="center">
+  <img src="./banner.png" alt="Harness Node Express Banner" />
+</p>
 
 基于 Martin Fowler 提出的 Harness Engineering 理念，为 Node Express Web 项目搭建的最小可用 harness。
 
