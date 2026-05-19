@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod +x *)",
+      "Bash(java -version)",
+      "Bash(/usr/libexec/java_home -V)",
+      "Bash(./mvnw test *)",
+      "Bash(./mvnw dependency:tree -Dincludes=org.springframework.boot:spring-boot-test)",
+      "Bash(git init *)",
+      "Bash(git rm *)",
+      "Bash(./scripts/agent-check.sh *)",
+      "Bash(./mvnw spotbugs:check)",
+      "Bash(./mvnw checkstyle:check)",
+      "Bash(npx jest *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(npx lefthook *)",
+      "Bash(sh *)",
+      "Bash(git add *)",
+      "Bash(git reset *)",
+      "Bash(cat)",
+      "Bash(cp /tmp/test-lefthook.yml lefthook-test.yml)",
+      "WebSearch",
+      "WebFetch(domain:lefthook.dev)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(env *)",
+      "Bash(curl *)",
+      "Bash(unzip -o /tmp/weread-skills.zip -d /tmp/weread-skills)",
+      "Read(//tmp/**)",
+      "Skill(weread-skills)",
+      "Skill(ai-reveiw)"
+    ]
+  }
+}
