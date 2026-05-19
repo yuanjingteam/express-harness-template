@@ -1,5 +1,8 @@
-# - pre-commit ：只跑 lint + typecheck（快速反馈，不阻塞提交）
-# - pre-push ：跑完整 check（lint + typecheck + test，防止坏代码推送到远程）
+skip_output:
+  - meta           # 隐藏 Lefthook 版本信息
+  - summary        # 隐藏执行摘要（避免 IDE 解析问题）
+  - empty_summary  # 隐藏空摘要
+
 pre-commit:
   parallel: true
   commands:
