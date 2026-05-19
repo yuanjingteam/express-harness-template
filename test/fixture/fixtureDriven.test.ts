@@ -64,8 +64,8 @@ describe('Fixture Driven Test', () => {
 
     const deletedUser = {
       id: BigInt(expectedResponse.id),
-      // username: expectedResponse.username,
-      // email: expectedResponse.email,
+      username: expectedResponse.username,
+      email: expectedResponse.email,
       phone: null,
       status: expectedResponse.status,
     };

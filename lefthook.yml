@@ -1,5 +1,7 @@
 pre-commit:
   parallel: true
+  env:
+    PATH: $HOME/.volta/bin:$PATH
   commands:
     lint:
       run: npx eslint src/ test/ --ext .ts
