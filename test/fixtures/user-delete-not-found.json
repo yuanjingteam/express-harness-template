@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "scenario": "删除用户不存在",
+    "description": "传入的用户 ID 在数据库中不存在，期望返回 404 错误",
+    "fields": {
+      "request.id": "用户 ID，正整数，但数据库中无此记录",
+      "expectedResponse.error": "错误信息，提示用户不存在"
+    }
+  },
+  "request": {
+    "id": 999
+  },
+  "expectedResponse": {
+    "error": "User with id 999 not found"
+  }
+}

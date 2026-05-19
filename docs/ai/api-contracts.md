@@ -56,10 +56,60 @@
 ]
 ```
 
-## DELETE /api/users/{id}
+## DELETE /api/users/:id
 
 删除指定用户。
 
-### 响应 (204 No Content)
+### 路径参数
 
-无响应体。
+- `id` (必填) — 用户 ID，正整数
+
+### 响应 (200 OK)
+
+```json
+{
+  "id": 1,
+  "username": "zhangsan",
+  "email": "zhangsan@example.com",
+  "phone": "13800000001",
+  "status": "ACTIVE"
+}
+```
+
+### 错误响应 (400 Bad Request)
+
+id 参数非法时返回：
+
+```json
+{
+  "error": "Validation failed",
+  "details": ["id: id must be a positive integer"]
+}
+```
+
+### 错误响应 (404 Not Found)
+
+用户不存在时返回：
+
+```json
+{
+  "error": "User with id 999 not found"
+}
+```
+
+获取所有用户列表。
+
+### 响应 (200 OK)
+
+```json
+[
+  {
+    "id": 1,
+    "username": "zhangsan",
+    "email": "zhangsan@example.com",
+    "phone": "13800000001",
+    "status": "ACTIVE"
+  }
+]
+```
+

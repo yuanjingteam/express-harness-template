@@ -13,6 +13,8 @@ jest.mock('../../src/shared/prisma', () => ({
     user: {
       create: jest.fn(),
       findMany: jest.fn(),
+      findUnique: jest.fn(),
+      delete: jest.fn(),
       deleteMany: jest.fn(),
     },
     $disconnect: jest.fn(),
@@ -52,5 +54,47 @@ describe('Fixture Driven Test', () => {
 
     expect(response.body.username).toBe(expectedResponse.username);
     expect(response.body.status).toBe(expectedResponse.status);
+  });
+
+  it('userDeleteSuccess', async () => {
+    const fixturePath = path.join(__dirname, '../fixtures/user-delete-success.json');
+    const fixture = JSON.parse(fs.readFileSync(fixturePath, 'utf-8'));
+
+    const { request: requestPayload, expectedResponse } = fixture;
+
+    const deletedUser = {
+      id: BigInt(expectedResponse.id),
+      username: expectedResponse.username,
+      email: expectedResponse.email,
+      phone: null,
+      status: expectedResponse.status,
+    };
+
+    mockPrisma.user.findUnique.mockResolvedValue(deletedUser);
+    mockPrisma.user.delete.mockResolvedValue(deletedUser);
+
+    const response = await request(app)
+      .delete(`/api/users/${requestPayload.id}`)
+      .expect(200);
+
+    expect(response.body.id).toBe(expectedResponse.id);
+    expect(response.body.username).toBe(expectedResponse.username);
+    expect(response.body.email).toBe(expectedResponse.email);
+    expect(response.body.status).toBe(expectedResponse.status);
+  });
+
+  it('userDeleteNotFound', async () => {
+    const fixturePath = path.join(__dirname, '../fixtures/user-delete-not-found.json');
+    const fixture = JSON.parse(fs.readFileSync(fixturePath, 'utf-8'));
+
+    const { request: requestPayload, expectedResponse } = fixture;
+
+    mockPrisma.user.findUnique.mockResolvedValue(null);
+
+    const response = await request(app)
+      .delete(`/api/users/${requestPayload.id}`)
+      .expect(404);
+
+    expect(response.body.error).toBe(expectedResponse.error);
   });
 });

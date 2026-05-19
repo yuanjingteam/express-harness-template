@@ -16,8 +16,12 @@ export class UserRepository implements IUserRepository {
     return prisma.user.findMany();
   }
 
-  async deleteById(id: bigint): Promise<number> {
-    const result = await prisma.user.deleteMany({ where: { id } });
-    return result.count;
+  async findById(id: bigint): Promise<User | null> {
+    return prisma.user.findUnique({ where: { id } });
   }
+
+  async delete(id: bigint): Promise<User> {
+    return prisma.user.delete({ where: { id } });
+  }
+
 }

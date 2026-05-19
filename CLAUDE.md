@@ -65,3 +65,4 @@ beforeAll(() => {
 - 修改 fixture 必须在 PR 描述里单独解释。
 - Fixture 文件命名规则：`{资源}-{操作}-{场景}.json`，如 `user-create-success.json`、`user-delete-not-found.json`。
 - 每个 fixture 文件必须包含 `_meta` 字段，说明场景、含义和各字段定义。
+- **新增或修改 fixture 文件时，必须同步更新 `test/fixture/fixtureDriven.test.ts`**，添加对应的测试用例读取该 fixture 并驱动验收测试。不允许只创建 fixture 而不补测试。

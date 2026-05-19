@@ -5,8 +5,8 @@ import {
   UserCreateResponse,
   UserResponse,
 } from '../dto/user.dto';
-import logger from '../../../shared/logger';
 import { NotFoundError } from '../../../shared/errors';
+import logger from '../../../shared/logger';
 
 function toCreateResponse(user: User): UserCreateResponse {
   return {
@@ -47,11 +47,16 @@ export class UserService {
     return users.map(toUserResponse);
   }
 
-  async deleteUser(id: number): Promise<void> {
-    const deleted = await this.userRepo.deleteById(BigInt(id));
-    if (deleted === 0) {
+  async deleteUser(id: number): Promise<UserResponse> {
+    const user = await this.userRepo.findById(BigInt(id));
+    if (!user) {
       throw new NotFoundError('User', id);
     }
-    logger.info('User deleted', { id });
+
+    const deleted = await this.userRepo.delete(BigInt(id));
+    logger.info('User deleted', { id: Number(deleted.id) });
+
+    return toUserResponse(deleted);
   }
+
 }

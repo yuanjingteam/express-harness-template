@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "scenario": "删除用户成功",
+    "description": "传入合法的用户 ID，该用户存在，期望返回被删除用户的完整信息",
+    "fields": {
+      "request.id": "用户 ID，正整数，对应数据库中的主键",
+      "expectedResponse.id": "被删除用户的 ID",
+      "expectedResponse.username": "被删除用户的用户名",
+      "expectedResponse.email": "被删除用户的邮箱",
+      "expectedResponse.status": "被删除用户的状态"
+    }
+  },
+  "request": {
+    "id": 1
+  },
+  "expectedResponse": {
+    "id": 1,
+    "username": "张三",
+    "email": "zhangsan@example.com",
+    "status": "ACTIVE"
+  }
+}

@@ -4,7 +4,6 @@
 import { UserService } from '../../src/modules/user/service/user.service';
 import { IUserRepository } from '../../src/modules/user/repository/user.repository.interface';
 import { User } from '@prisma/client';
-import { NotFoundError } from '../../src/shared/errors';
 // 测试用的模拟用户
 const mockUser: User = {
   id: BigInt(1),
@@ -18,7 +17,8 @@ const mockUser: User = {
 const createMockRepo = (): jest.Mocked<IUserRepository> => ({
   create: jest.fn().mockResolvedValue(mockUser),
   findAll: jest.fn().mockResolvedValue([mockUser]),
-  deleteById: jest.fn().mockResolvedValue(1),
+  findById: jest.fn().mockResolvedValue(mockUser),
+  delete: jest.fn().mockResolvedValue(mockUser),
 });
 
 describe('UserService', () => {
@@ -73,16 +73,25 @@ describe('UserService', () => {
   });
 
   describe('deleteUser', () => {
-    it('should delete user successfully', async () => {
-      await userService.deleteUser(1);
+    it('should return deleted user response', async () => {
+      const response = await userService.deleteUser(1);
 
-      expect(mockRepo.deleteById).toHaveBeenCalledWith(BigInt(1));
+      expect(response).toMatchObject({
+        id: 1,
+        username: 'testuser',
+        email: 'test@example.com',
+        status: 'ACTIVE',
+      });
+
+      expect(mockRepo.findById).toHaveBeenCalledWith(BigInt(1));
+      expect(mockRepo.delete).toHaveBeenCalledWith(BigInt(1));
     });
 
     it('should throw NotFoundError when user does not exist', async () => {
-      mockRepo.deleteById.mockResolvedValue(0);
+      mockRepo.findById.mockResolvedValue(null);
 
-      await expect(userService.deleteUser(999)).rejects.toThrow(NotFoundError);
+      await expect(userService.deleteUser(999)).rejects.toThrow('User with id 999 not found');
     });
   });
+
 });

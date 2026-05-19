@@ -1,0 +1,16 @@
+# - pre-commit ：只跑 lint + typecheck（快速反馈，不阻塞提交）
+# - pre-push ：跑完整 check（lint + typecheck + test，防止坏代码推送到远程）
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      run: npx eslint src/ test/ --ext .ts
+      glob: "*.{ts,tsx}"
+    typecheck:
+      run: npx tsc --noEmit
+      glob: "*.{ts,tsx}"
+
+pre-push:
+  commands:
+    check:
+      run: npm run check

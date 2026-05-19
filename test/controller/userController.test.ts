@@ -11,8 +11,8 @@ jest.mock('../../src/shared/prisma', () => ({
     user: {
       create: jest.fn(),
       findMany: jest.fn(),
+      findUnique: jest.fn(),
       delete: jest.fn(),
-      deleteMany: jest.fn(),
     },
     $disconnect: jest.fn(),
   },
@@ -97,26 +97,43 @@ describe('UserController', () => {
   });
 
   describe('DELETE /api/users/:id', () => {
-    it('should return 204 when deleting a user', async () => {
-      mockPrisma.user.deleteMany.mockResolvedValue({ count: 1 });
+    it('should return 200 when deleting a user', async () => {
+      const deletedUser = {
+        id: BigInt(1),
+        username: 'zhangsan',
+        email: 'zhangsan@example.com',
+        phone: '13800000001',
+        status: 'ACTIVE',
+      };
 
-      await request(app)
+      mockPrisma.user.findUnique.mockResolvedValue(deletedUser);
+      mockPrisma.user.delete.mockResolvedValue(deletedUser);
+
+      const response = await request(app)
         .delete('/api/users/1')
-        .expect(204);
+        .expect(200);
+
+      expect(response.body).toMatchObject({
+        id: 1,
+        username: 'zhangsan',
+        email: 'zhangsan@example.com',
+        status: 'ACTIVE',
+      });
     });
 
-    it('should return 400 when id is invalid', async () => {
+    it('should return 400 when id is not a positive integer', async () => {
       await request(app)
         .delete('/api/users/abc')
         .expect(400);
     });
 
     it('should return 404 when user does not exist', async () => {
-      mockPrisma.user.deleteMany.mockResolvedValue({ count: 0 });
+      mockPrisma.user.findUnique.mockResolvedValue(null);
 
       await request(app)
         .delete('/api/users/999')
         .expect(404);
     });
   });
+
 });
