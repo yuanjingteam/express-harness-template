@@ -63,3 +63,5 @@ beforeAll(() => {
 - `test/fixtures/` 下的 fixture 文件由人类确认，agent 不得为了让测试通过而修改它。
 - 新增行为可以新增 fixture，但要说明业务含义。
 - 修改 fixture 必须在 PR 描述里单独解释。
+- Fixture 文件命名规则：`{资源}-{操作}-{场景}.json`，如 `user-create-success.json`、`user-delete-not-found.json`。
+- 每个 fixture 文件必须包含 `_meta` 字段，说明场景、含义和各字段定义。

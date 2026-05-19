@@ -29,7 +29,7 @@ describe('Layering Architecture', () => {
     controllerFiles = getTsFiles(CONTROLLER_DIR);
     serviceFiles = getTsFiles(SERVICE_DIR);
   });
-
+  // 测试controller是否直接导入repository
   it('controller should not import repository directly', () => {
     controllerFiles.forEach((file) => {
       const content = fs.readFileSync(file, 'utf-8');
@@ -37,7 +37,7 @@ describe('Layering Architecture', () => {
       expect(hasRepoImport).toBe(false);
     });
   });
-
+  // 测试controller是否直接导入 Prisma 客户端
   it('controller should not import prisma directly', () => {
     controllerFiles.forEach((file) => {
       const content = fs.readFileSync(file, 'utf-8');
@@ -45,7 +45,7 @@ describe('Layering Architecture', () => {
       expect(hasPrismaImport).toBe(false);
     });
   });
-
+  // 测试service是否直接导入controller
   it('service should not import controller', () => {
     serviceFiles.forEach((file) => {
       const content = fs.readFileSync(file, 'utf-8');

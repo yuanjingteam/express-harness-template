@@ -1,4 +1,15 @@
 {
+  "_meta": {
+    "scenario": "创建用户成功",
+    "description": "提交合法的用户名、邮箱和手机号，期望创建成功返回用户名和 ACTIVE 状态",
+    "fields": {
+      "request.username": "用户名，必填，不可为空白",
+      "request.email": "邮箱，必填，须为合法格式",
+      "request.phone": "手机号，选填",
+      "expectedResponse.username": "创建成功后返回的用户名",
+      "expectedResponse.status": "用户状态，新用户默认为 ACTIVE"
+    }
+  },
   "request": {
     "username": "wangwu",
     "email": "wangwu@example.com",

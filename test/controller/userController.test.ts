@@ -1,6 +1,11 @@
 import request from 'supertest';
 import type { Application } from 'express';
 
+/**
+ *  集成测试： 从 HTTP 请求到 Controller → Service → Repository 全链路走通，只是数据库用 mock 替代
+ */
+
+// 模拟Prisma客户端
 jest.mock('../../src/shared/prisma', () => ({
   prisma: {
     user: {

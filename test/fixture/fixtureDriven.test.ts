@@ -3,6 +3,11 @@ import path from 'path';
 import request from 'supertest';
 import type { Application } from 'express';
 
+/**
+ *  关键行为验收测试：fixture 文件是人确认过的"标准答案"，Agent 不能改
+ */
+
+// 模拟Prisma客户端
 jest.mock('../../src/shared/prisma', () => ({
   prisma: {
     user: {

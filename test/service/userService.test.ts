@@ -1,8 +1,11 @@
+/**
+ *  用户服务单元测试，只测 Service 层逻辑
+ */
 import { UserService } from '../../src/modules/user/service/user.service';
 import { IUserRepository } from '../../src/modules/user/repository/user.repository.interface';
 import { User } from '@prisma/client';
 import { NotFoundError } from '../../src/shared/errors';
-
+// 测试用的模拟用户
 const mockUser: User = {
   id: BigInt(1),
   username: 'testuser',
@@ -10,6 +13,7 @@ const mockUser: User = {
   phone: '13800000000',
   status: 'ACTIVE',
 };
+
 
 const createMockRepo = (): jest.Mocked<IUserRepository> => ({
   create: jest.fn().mockResolvedValue(mockUser),
@@ -26,6 +30,9 @@ describe('UserService', () => {
     userService = new UserService(mockRepo);
   });
 
+  /**
+   *  测试创建用户成功
+   */
   describe('createUser', () => {
     it('should return correct response after creating user', async () => {
       const response = await userService.createUser({
