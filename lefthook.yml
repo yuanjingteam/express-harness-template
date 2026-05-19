@@ -1,6 +1,5 @@
 skip_output:
-  - meta           # 隐藏 Lefthook 版本信息
-  - summary        # 隐藏执行摘要（避免 IDE 解析问题）
+  - meta           # 隐藏 Lefthook 版本/标题信息
   - empty_summary  # 隐藏空摘要
 
 pre-commit:
